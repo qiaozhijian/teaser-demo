@@ -5,8 +5,13 @@
       <sourceFolder url="file://$MODULE_DIR$/teaser_python_fpfh_icp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/teaser_python_3dsmooth" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/teaser_python_ply" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/teaser_python_fpfh_icp/DGR" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/teaser_python_fpfh_icp/DGR/core" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/teaser_python_fpfh_icp/DGR/model" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/teaser_python_fpfh_icp/DGR/pretrain" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/teaser_python_fpfh_icp/DGR/util" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.8 (base) " jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
