@@ -5,15 +5,13 @@ import copy
 from teaser_python_fpfh_icp.helpers import *
 
 VOXEL_SIZE = 0.05
-VISUALIZE = True
+VISUALIZE = False
 
 # Load and visualize two point clouds from 3DMatch dataset
 A_pcd_raw = o3d.io.read_point_cloud('./data/cloud_bin_0.ply')
 B_pcd_raw = o3d.io.read_point_cloud('./data/cloud_bin_4.ply')
 A_pcd_raw.paint_uniform_color([0.0, 0.0, 1.0]) # show A_pcd in blue
 B_pcd_raw.paint_uniform_color([1.0, 0.0, 0.0]) # show B_pcd in red
-if VISUALIZE:
-    o3d.visualization.draw_geometries([A_pcd_raw,B_pcd_raw]) # plot A and B 
 
 # voxel downsample both clouds
 A_pcd = A_pcd_raw.voxel_down_sample(voxel_size=VOXEL_SIZE)
@@ -64,10 +62,10 @@ A_pcd_T_teaser = copy.deepcopy(A_pcd).transform(T_teaser)
 o3d.visualization.draw_geometries([A_pcd_T_teaser,B_pcd])
 
 # local refinement using ICP
-icp_sol = o3d.registration.registration_icp(
+icp_sol = o3d.pipelines.registration.registration_icp(
       A_pcd, B_pcd, NOISE_BOUND, T_teaser,
-      o3d.registration.TransformationEstimationPointToPoint(),
-      o3d.registration.ICPConvergenceCriteria(max_iteration=100))
+      o3d.pipelines.registration.TransformationEstimationPointToPoint(),
+      o3d.pipelines.registration.ICPConvergenceCriteria(max_iteration=100))
 T_icp = icp_sol.transformation
 
 # visualize the registration after ICP refinement

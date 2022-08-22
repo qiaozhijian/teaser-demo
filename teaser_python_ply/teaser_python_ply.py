@@ -24,13 +24,14 @@ if __name__ == "__main__":
     print("==================================================")
 
     # Load bunny ply file
-    # src_cloud = o3d.io.read_point_cloud("../example_data/bun_zipper_res3.ply")
+    # 生成点云，旋转，加噪声，给一些点加离谱的平移生成外点
+    src_cloud = o3d.io.read_point_cloud("../example_data/bun_zipper_res3.ply")
 
-    src_cloud = o3d.geometry.PointCloud()
-    path1='/media/qzj/Document/grow/research/slamDataSet/kitti/data_odometry_velodyne/dataset/sequences/00/velodyne/000000.bin'
-    pcl_np = np.fromfile(path1, dtype=np.float32, count=-1).reshape([-1, 4])[:10000,:3]
+    # src_cloud = o3d.geometry.PointCloud()
+    # path1='/media/qzj/Document/grow/research/slamDataSet/kitti/data_odometry_velodyne/dataset/sequences/00/velodyne/000000.bin'
+    # pcl_np = np.fromfile(path1, dtype=np.float32, count=-1).reshape([-1, 4])[:10000,:3]
     # print(pcl_np.shape)
-    src_cloud.points = o3d.utility.Vector3dVector(pcl_np)
+    # src_cloud.points = o3d.utility.Vector3dVector(pcl_np)
 
     src = np.transpose(np.asarray(src_cloud.points))
     N = src.shape[1]
@@ -94,5 +95,8 @@ if __name__ == "__main__":
     print("Number of outliers: ", N_OUTLIERS)
     print("Time taken (s): ", end - start)
 
-    tgt_cloud = src_cloud.transform(solution.transformation)
+    transformation = np.eye(4)
+    transformation[:3, :3] = solution.rotation
+    transformation[:3, 3] = solution.translation
+    tgt_cloud = src_cloud.transform(transformation)
     o3d.visualization.draw_geometries([src_cloud, tgt_cloud])
